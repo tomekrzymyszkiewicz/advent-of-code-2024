@@ -1,11 +1,18 @@
 with open("input.txt", "r") as f:
-    one, two = [], []
-    for line in f.read().split("\n"):
-        elements = " ".join(line.split()).split()
-        one.append(int(elements[0]))
-        two.append(int(elements[1]))
+    one, two = map(
+        sorted,
+        map(
+            list,
+            zip(
+                *[
+                    map(int, " ".join(line.split()).split())
+                    for line in f.read().split("\n")
+                ]
+            ),
+        ),
+    )
 
-sum_of_diffs = 0
-while one or two:
-    sum_of_diffs += abs(one.pop(one.index(min(one))) - two.pop(two.index(min(two))))
-print(sum_of_diffs)
+result = sum([abs(i - j) for i, j in zip(sorted(one), sorted(two))])
+
+print(result)
+assert result == 2192892
