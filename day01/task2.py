@@ -1,11 +1,18 @@
 with open("input.txt", "r") as f:
-    one, two = [], []
-    for line in f.read().split("\n"):
-        elements = " ".join(line.split()).split()
-        one.append(int(elements[0]))
-        two.append(int(elements[1]))
+    one, two = map(
+        sorted,
+        map(
+            list,
+            zip(
+                *[
+                    map(int, " ".join(line.split()).split())
+                    for line in f.read().split("\n")
+                ]
+            ),
+        ),
+    )
 
-similarity_score = 0
-for i in one:
-    similarity_score += i * two.count(i)
+similarity_score = sum([i * two.count(i) for i in one])
+
 print(similarity_score)
+assert similarity_score == 22962826
