@@ -28,4 +28,6 @@ for report in reports:
             if is_report_safe(report[:i] + report[i + 1 :]):
                 safe_reports_count += 1
                 break
+
 print(safe_reports_count)
+assert safe_reports_count == 561
